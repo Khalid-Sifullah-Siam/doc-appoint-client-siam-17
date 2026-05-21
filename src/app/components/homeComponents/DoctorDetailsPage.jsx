@@ -13,6 +13,7 @@ import ProtectedRoute from '../sharedComponents/ProtectedRoute/ProtectedRoute';
 import Loading from '@/app/loading';
 
 
+
 const DoctorDetailsPage = () => {
     const { id } = useParams();
     const router = useRouter();
