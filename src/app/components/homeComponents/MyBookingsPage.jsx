@@ -10,6 +10,7 @@ import axiosInstance from '../sharedComponents/AxiosInstance/AxiosInstance';
 import ProtectedRoute from '../sharedComponents/ProtectedRoute/ProtectedRoute';
 import Loading from '@/app/loading';
 
+
 const MyBookingsPage = () => {
     const [user, setUser] = useState(null);
     const [bookings, setBookings] = useState([]);
