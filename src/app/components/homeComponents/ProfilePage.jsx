@@ -16,6 +16,7 @@ const ProfilePage = () => {
         name: '',
         image: '',
     });
+    
     const [saving, setSaving] = useState(false);
     const [imageError, setImageError] = useState(false);
 
