@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, User, LogOut, ChevronDown, Calendar, Settings, LayoutDashboard, Stethoscope, Home, Info } from 'lucide-react';
+import { X, User, LogOut, ChevronDown, Calendar, LayoutDashboard, Stethoscope, Home, Info } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
