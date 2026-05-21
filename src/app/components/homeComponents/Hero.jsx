@@ -74,6 +74,7 @@ const Hero = () => {
         return () => clearInterval(timer);
     }, [nextSlide]);
 
+    
     return (
         <section className="relative bg-black overflow-hidden min-h-150 lg:min-h-175 flex items-center">
             <div className="relative z-10 w-full">
