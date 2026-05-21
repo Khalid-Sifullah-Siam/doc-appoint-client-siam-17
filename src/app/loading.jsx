@@ -1,6 +1,7 @@
 import React from 'react';
 import { Stethoscope } from 'lucide-react';
 
+
 const Loading = () => {
     return (
         <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
