@@ -82,6 +82,7 @@ const DoctorsPage = () => {
                                 </div>
                             </div>
 
+
                             <div className="relative h-56 sm:h-60 overflow-hidden">
                                 <Image
                                     src={doctor.image}
