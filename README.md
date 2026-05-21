@@ -4,6 +4,7 @@ Book doctor appointments with confidence—fast browsing, easy scheduling, and s
 
 ---
 
+
 ## Description
 **docAppoint** is a Next.js healthcare booking platform that helps users browse doctors and manage appointments with built-in authentication.
 
@@ -32,6 +33,9 @@ Authentication is handled using **better-auth**, with user accounts stored in **
 - **react-hot-toast** (notifications)
 
 ---
+
+## Live link: 
+
 
 ## Installation
 
