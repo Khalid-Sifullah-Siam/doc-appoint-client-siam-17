@@ -9,6 +9,7 @@ const NotFoundPage = () => {
 
             <div className="relative z-10 text-center px-4">
 
+
                 {/* 404 Icon */}
                 <div className="mb-8">
                     <div className="relative inline-block">
