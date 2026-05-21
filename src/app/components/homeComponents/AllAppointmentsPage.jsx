@@ -56,6 +56,7 @@ const AllAppointmentsPage = () => {
             result = result.filter(doc => doc.specialty === specialtyFilter);
         }
 
+        
         switch (sortBy) {
             case 'fee_asc':
                 result.sort((a, b) => a.fee - b.fee);
