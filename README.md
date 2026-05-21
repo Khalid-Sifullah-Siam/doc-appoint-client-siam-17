@@ -35,6 +35,7 @@ Authentication is handled using **better-auth**, with user accounts stored in **
 ---
 
 ## Live link: 
+https://doc-appoint-client-siam-17.vercel.app
 
 
 ## Installation
