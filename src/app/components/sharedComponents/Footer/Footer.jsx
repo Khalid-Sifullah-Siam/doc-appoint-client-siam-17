@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Stethoscope, Mail, Phone, MapPin, Heart,  } from 'lucide-react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
+
 const Footer = () => {
     const currentYear = new Date().getFullYear();
 
