@@ -102,17 +102,17 @@ const Navbar = () => {
     return (
         <>
             <nav className={`w-full sticky top-0 z-50 transition-all duration-500 ${scrolled
-                ? 'bg-black/60 backdrop-blur-2xl shadow-2xl shadow-orange-500/10 border-b border-white/10'
-                : 'bg-black/40 backdrop-blur-xl border-b border-white/5'
+                ? 'theme-surface backdrop-blur-2xl shadow-2xl shadow-orange-500/10 border-b border-white/10'
+                : 'theme-surface backdrop-blur-xl border-b border-white/5'
                 }`}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16 lg:h-20">
 
                         <Link href="/" className="flex items-center gap-3 group cursor-pointer shrink-0">
                             <div className="relative w-10 h-10 lg:w-11 lg:h-11 rounded-xl bg-linear-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg shadow-orange-500/30 group-hover:shadow-orange-500/50 group-hover:scale-105 transition-all duration-300">
-                                <Stethoscope className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
+                                <Stethoscope className="w-5 h-5 lg:w-6 lg:h-6 theme-text" />
                             </div>
-                            <h1 className="text-xl lg:text-2xl font-bold text-white">
+                            <h1 className="text-xl lg:text-2xl font-bold theme-text">
                                 doc<span className="text-orange-500">Appoint</span>
                             </h1>
                         </Link>
@@ -127,7 +127,7 @@ const Navbar = () => {
                                         href={item.path}
                                         className={`relative px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2 ${isActive
                                             ? 'text-orange-400 bg-orange-500/10 border border-orange-500/20'
-                                            : 'text-gray-300 hover:text-orange-400 hover:bg-white/5'
+                                            : 'theme-text-muted hover:text-orange-400 hover:bg-white/5'
                                             }`}
                                     >
                                         <Icon size={16} />
@@ -140,7 +140,7 @@ const Navbar = () => {
                         <div className="hidden lg:flex items-center gap-3">
                             <button
                                 onClick={toggleTheme}
-                                className="w-10 h-10 rounded-xl border border-white/10 text-gray-300 hover:text-orange-400 hover:border-orange-500/40 transition-all flex items-center justify-center"
+                                className="w-10 h-10 rounded-xl border border-white/10 theme-text-muted hover:text-orange-400 hover:border-orange-500/40 transition-all flex items-center justify-center"
                                 aria-label="Toggle theme"
                             >
                                 {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
@@ -169,31 +169,31 @@ const Navbar = () => {
                                                     height={100}
                                                     onError={(e) => {
                                                         e.target.style.display = 'none';
-                                                        e.target.parentElement.innerHTML = `<div class="w-full h-full bg-linear-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-semibold text-sm">${(user.name?.charAt(0) || 'U').toUpperCase()}</div>`;
+                                                        e.target.parentElement.innerHTML = `<div class="w-full h-full bg-linear-to-br from-orange-500 to-orange-600 theme-text flex items-center justify-center font-semibold text-sm">${(user.name?.charAt(0) || 'U').toUpperCase()}</div>`;
                                                     }}
                                                 />
                                             ) : (
-                                                <div className="w-full h-full bg-linear-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-semibold text-sm">
+                                                <div className="w-full h-full bg-linear-to-br from-orange-500 to-orange-600 theme-text flex items-center justify-center font-semibold text-sm">
                                                     {(user.name?.charAt(0) || 'U').toUpperCase()}
                                                 </div>
                                             )}
                                         </div>
 
                                         <div className="text-left hidden xl:block">
-                                            <p className="text-sm font-semibold text-white leading-tight max-w-25 truncate">
+                                            <p className="text-sm font-semibold theme-text leading-tight max-w-25 truncate">
                                                 {user.name?.split(' ')[0] || 'User'}
                                             </p>
-                                            <p className="text-xs text-gray-400 leading-tight">Patient</p>
+                                            <p className="text-xs theme-text-muted leading-tight">Patient</p>
                                         </div>
 
-                                        <ChevronDown size={16} className={`text-gray-400 transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                                        <ChevronDown size={16} className={`theme-text-muted transition-transform duration-300 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                                     </button>
 
-                                    <div className={`absolute right-0 mt-2 w-56 bg-black/90 backdrop-blur-2xl rounded-xl shadow-2xl border border-white/10 py-2 transition-all duration-200 origin-top-right ${isDropdownOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'
+                                    <div className={`absolute right-0 mt-2 w-56 theme-surface backdrop-blur-2xl rounded-xl shadow-2xl border border-white/10 py-2 transition-all duration-200 origin-top-right ${isDropdownOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'
                                         }`}>
                                         <div className="px-4 py-3 border-b border-white/10">
-                                            <p className="text-sm font-semibold text-white truncate">{user.name || 'User'}</p>
-                                            <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                                            <p className="text-sm font-semibold theme-text truncate">{user.name || 'User'}</p>
+                                            <p className="text-xs theme-text-muted truncate">{user.email}</p>
                                         </div>
 
                                         <div className="py-1">
@@ -205,7 +205,7 @@ const Navbar = () => {
                                                     key={idx}
                                                     href={item.path}
                                                     onClick={() => setIsDropdownOpen(false)}
-                                                    className="flex items-center gap-3 px-4 py-2.5 text-gray-300 hover:text-orange-400 hover:bg-orange-500/10 transition-all duration-200"
+                                                    className="flex items-center gap-3 px-4 py-2.5 theme-text-muted hover:text-orange-400 hover:bg-orange-500/10 transition-all duration-200"
                                                 >
                                                     <item.icon size={18} />
                                                     <span className="text-sm font-medium">{item.label}</span>
@@ -235,7 +235,7 @@ const Navbar = () => {
 
                                     <Link
                                         href={"/auth/get-started"}
-                                        className="px-5 py-2.5 rounded-xl bg-linear-to-r from-orange-500 to-orange-600 text-white hover:from-orange-600 hover:to-orange-700 transition-all duration-300 font-medium text-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40"
+                                        className="px-5 py-2.5 rounded-xl bg-linear-to-r from-orange-500 to-orange-600 theme-text hover:from-orange-600 hover:to-orange-700 transition-all duration-300 font-medium text-sm shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40"
                                     >
                                         Get Started
                                     </Link>
@@ -267,15 +267,15 @@ const Navbar = () => {
             ></div>
 
             <div
-                className={`fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-black/95 backdrop-blur-3xl z-50 shadow-2xl shadow-orange-500/10 border-r border-white/10 transform transition-transform duration-300 ease-in-out lg:hidden overflow-y-auto ${isOpen ? 'translate-x-0' : '-translate-x-full'
+                className={`fixed top-0 left-0 h-full w-80 max-w-[85vw] theme-surface backdrop-blur-3xl z-50 shadow-2xl shadow-orange-500/10 border-r border-white/10 transform transition-transform duration-300 ease-in-out lg:hidden overflow-y-auto ${isOpen ? 'translate-x-0' : '-translate-x-full'
                     }`}>
 
                 <div className="flex items-center justify-between p-4 border-b border-white/10">
                     <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
                         <div className="w-9 h-9 rounded-lg bg-linear-to-br from-orange-500 to-orange-600 flex items-center justify-center">
-                            <Stethoscope size={18} className="text-white" />
+                            <Stethoscope size={18} className="theme-text" />
                         </div>
-                        <span className="text-lg font-bold text-white">
+                        <span className="text-lg font-bold theme-text">
                             doc<span className="text-orange-500">Appoint</span>
                         </span>
                     </Link>
@@ -283,7 +283,7 @@ const Navbar = () => {
                         onClick={() => setIsOpen(false)}
                         className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/5 transition-colors"
                     >
-                        <X size={20} className="text-gray-400" />
+                        <X size={20} className="theme-text-muted" />
                     </button>
                 </div>
 
@@ -300,18 +300,18 @@ const Navbar = () => {
                                         height={100}
                                         onError={(e) => {
                                             e.target.style.display = 'none';
-                                            e.target.parentElement.innerHTML = `<div class="w-full h-full bg-linear-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-semibold text-lg">${(user.name?.charAt(0) || 'U').toUpperCase()}</div>`;
+                                            e.target.parentElement.innerHTML = `<div class="w-full h-full bg-linear-to-br from-orange-500 to-orange-600 theme-text flex items-center justify-center font-semibold text-lg">${(user.name?.charAt(0) || 'U').toUpperCase()}</div>`;
                                         }}
                                     />
                                 ) : (
-                                    <div className="w-full h-full bg-linear-to-br from-orange-500 to-orange-600 text-white flex items-center justify-center font-semibold text-lg">
+                                    <div className="w-full h-full bg-linear-to-br from-orange-500 to-orange-600 theme-text flex items-center justify-center font-semibold text-lg">
                                         {(user.name?.charAt(0) || 'U').toUpperCase()}
                                     </div>
                                 )}
                             </div>
                             <div className="flex-1 min-w-0">
-                                <p className="font-semibold text-white truncate">{user.name}</p>
-                                <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                                <p className="font-semibold theme-text truncate">{user.name}</p>
+                                <p className="text-xs theme-text-muted truncate">{user.email}</p>
                             </div>
                         </div>
                     </div>
@@ -328,7 +328,7 @@ const Navbar = () => {
                                 onClick={() => setIsOpen(false)}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-200 ${isActive
                                     ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20'
-                                    : 'text-gray-400 hover:text-orange-400 hover:bg-white/5'
+                                    : 'theme-text-muted hover:text-orange-400 hover:bg-white/5'
                                     }`}
                             >
                                 <Icon size={20} />
@@ -341,7 +341,7 @@ const Navbar = () => {
                 <div className="p-4 border-t border-white/10 space-y-3">
                     <button
                         onClick={toggleTheme}
-                        className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/5 text-gray-300 font-medium hover:bg-orange-500/10 hover:text-orange-400 transition-all"
+                        className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/5 theme-text-muted font-medium hover:bg-orange-500/10 hover:text-orange-400 transition-all"
                     >
                         {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
                         <span className="text-sm">{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
@@ -351,7 +351,7 @@ const Navbar = () => {
                             <Link
                                 href="/dashboard/profile"
                                 onClick={() => setIsOpen(false)}
-                                className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/5 text-gray-300 font-medium hover:bg-orange-500/10 hover:text-orange-400 transition-all"
+                                className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/5 theme-text-muted font-medium hover:bg-orange-500/10 hover:text-orange-400 transition-all"
                             >
                                 <User size={20} />
                                 <span className="text-sm">My Profile</span>
@@ -359,7 +359,7 @@ const Navbar = () => {
                             <Link
                                 href="/dashboard/bookings"
                                 onClick={() => setIsOpen(false)}
-                                className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/5 text-gray-300 font-medium hover:bg-orange-500/10 hover:text-orange-400 transition-all"
+                                className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/5 theme-text-muted font-medium hover:bg-orange-500/10 hover:text-orange-400 transition-all"
                             >
                                 <Calendar size={20} />
                                 <span className="text-sm">My Bookings</span>
@@ -384,7 +384,7 @@ const Navbar = () => {
                             <Link
                                 href={"/auth/get-started"}
                                 onClick={() => setIsOpen(false)}
-                                className="block w-full px-4 py-3 rounded-xl bg-linear-to-r from-orange-500 to-orange-600 text-white font-medium text-center hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg shadow-orange-500/20"
+                                className="block w-full px-4 py-3 rounded-xl bg-linear-to-r from-orange-500 to-orange-600 theme-text font-medium text-center hover:from-orange-600 hover:to-orange-700 transition-all shadow-lg shadow-orange-500/20"
                             >
                                 Get Started
                             </Link>
@@ -397,3 +397,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+

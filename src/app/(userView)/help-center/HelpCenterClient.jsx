@@ -141,7 +141,7 @@ const HelpCenter = () => {
     })();
 
     return (
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen theme-bg">
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-20 right-10 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-20 left-10 w-72 h-72 bg-orange-600/5 rounded-full blur-3xl"></div>
@@ -155,10 +155,10 @@ const HelpCenter = () => {
                         <HelpCircle size={16} className="text-orange-500" />
                         <span className="text-orange-400 text-sm font-medium">Help Center</span>
                     </div>
-                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold theme-text mb-4">
                         How Can We <span className="text-orange-500">Help You?</span>
                     </h1>
-                    <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+                    <p className="theme-text-muted max-w-2xl mx-auto text-sm sm:text-base">
                         Find answers to common questions and get support for all your healthcare booking needs.
                     </p>
                 </div>
@@ -166,18 +166,18 @@ const HelpCenter = () => {
                 {/* Search */}
                 <div className="max-w-2xl mx-auto mb-12 sm:mb-16">
                     <div className="relative">
-                        <Search size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500" />
+                        <Search size={20} className="absolute left-5 top-1/2 -translate-y-1/2 theme-text-muted" />
                         <input
                             type="text"
                             placeholder="Search for help articles..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-14 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500 outline-none focus:border-orange-500/50 focus:bg-white/8 transition-all text-lg"
+                            className="w-full pl-14 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl theme-text placeholder-gray-500 outline-none focus:border-orange-500/50 focus:bg-white/8 transition-all text-lg"
                         />
                     </div>
                     <div className="mt-4 flex flex-wrap gap-2">
                         {['All', ...helpCategories.map((c) => c.title)].map((cat) => (
-                            <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-3 py-1.5 rounded-lg text-xs border ${activeCategory === cat ? 'bg-orange-500/20 border-orange-500/40 text-orange-400' : 'border-white/10 text-gray-400'}`}>
+                            <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-3 py-1.5 rounded-lg text-xs border ${activeCategory === cat ? 'bg-orange-500/20 border-orange-500/40 text-orange-400' : 'border-white/10 theme-text-muted'}`}>
                                 {cat}
                             </button>
                         ))}
@@ -196,14 +196,14 @@ const HelpCenter = () => {
                                 <div className={`w-12 h-12 rounded-xl ${category.iconBg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                                     <Icon size={24} className={category.iconColor} />
                                 </div>
-                                <h3 className="text-white font-bold text-lg mb-2">{category.title}</h3>
-                                <p className="text-gray-400 text-sm mb-4">{category.description}</p>
+                                <h3 className="theme-text font-bold text-lg mb-2">{category.title}</h3>
+                                <p className="theme-text-muted text-sm mb-4">{category.description}</p>
                                 <ul className="space-y-2">
                                     {category.articles.slice(0, 3).map((article, idx) => (
                                         <li key={idx}>
                                             <Link
                                                 href="#"
-                                                className="flex items-center gap-2 text-gray-400 text-sm hover:text-orange-400 transition-colors"
+                                                className="flex items-center gap-2 theme-text-muted text-sm hover:text-orange-400 transition-colors"
                                             >
                                                 <span className="w-1 h-1 rounded-full bg-orange-500"></span>
                                                 {article}
@@ -234,7 +234,7 @@ const HelpCenter = () => {
                             <MessageCircle size={16} className="text-orange-500" />
                             <span className="text-orange-400 text-sm font-medium">FAQs</span>
                         </div>
-                        <h2 className="text-2xl sm:text-3xl font-bold text-white">
+                        <h2 className="text-2xl sm:text-3xl font-bold theme-text">
                             Frequently Asked <span className="text-orange-500">Questions</span>
                         </h2>
                     </div>
@@ -246,11 +246,11 @@ const HelpCenter = () => {
                                 className="group rounded-2xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-300 hover:border-orange-500/20"
                             >
                                 <summary className="flex items-center justify-between p-5 sm:p-6 cursor-pointer list-none">
-                                    <span className="text-white font-semibold pr-4">{faq.question}</span>
-                                    <ChevronRight size={18} className="text-gray-400 shrink-0 group-open:rotate-90 transition-transform duration-300" />
+                                    <span className="theme-text font-semibold pr-4">{faq.question}</span>
+                                    <ChevronRight size={18} className="theme-text-muted shrink-0 group-open:rotate-90 transition-transform duration-300" />
                                 </summary>
                                 <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-                                    <p className="text-gray-400 text-sm leading-relaxed">{faq.answer}</p>
+                                    <p className="theme-text-muted text-sm leading-relaxed">{faq.answer}</p>
                                 </div>
                             </details>
                         ))}
@@ -263,8 +263,8 @@ const HelpCenter = () => {
                         <div className="w-14 h-14 rounded-xl bg-orange-500/10 flex items-center justify-center mx-auto mb-4">
                             <BookOpen size={26} className="text-orange-500" />
                         </div>
-                        <h3 className="text-white font-bold text-lg mb-2">Documentation</h3>
-                        <p className="text-gray-400 text-sm mb-4">Detailed guides and tutorials</p>
+                        <h3 className="theme-text font-bold text-lg mb-2">Documentation</h3>
+                        <p className="theme-text-muted text-sm mb-4">Detailed guides and tutorials</p>
                         <Link
                             href="#"
                             className="inline-flex items-center gap-1 text-orange-500 hover:text-orange-400 text-sm font-medium transition-colors group"
@@ -278,8 +278,8 @@ const HelpCenter = () => {
                         <div className="w-14 h-14 rounded-xl bg-green-500/10 flex items-center justify-center mx-auto mb-4">
                             <MessageCircle size={26} className="text-green-400" />
                         </div>
-                        <h3 className="text-white font-bold text-lg mb-2">Live Chat</h3>
-                        <p className="text-gray-400 text-sm mb-4">Chat with our support team</p>
+                        <h3 className="theme-text font-bold text-lg mb-2">Live Chat</h3>
+                        <p className="theme-text-muted text-sm mb-4">Chat with our support team</p>
                         <button className="inline-flex items-center gap-1 text-green-400 hover:text-green-300 text-sm font-medium transition-colors group">
                             Start Chat
                             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -290,8 +290,8 @@ const HelpCenter = () => {
                         <div className="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center mx-auto mb-4">
                             <Phone size={26} className="text-purple-400" />
                         </div>
-                        <h3 className="text-white font-bold text-lg mb-2">Call Us</h3>
-                        <p className="text-gray-400 text-sm mb-4">+880 1700-000000</p>
+                        <h3 className="theme-text font-bold text-lg mb-2">Call Us</h3>
+                        <p className="theme-text-muted text-sm mb-4">+880 1700-000000</p>
                         <Link
                             href="tel:+8801700000000"
                             className="inline-flex items-center gap-1 text-purple-400 hover:text-purple-300 text-sm font-medium transition-colors group"
@@ -307,4 +307,5 @@ const HelpCenter = () => {
 };
 
 export default HelpCenter;
+
 

@@ -173,7 +173,7 @@ const Faqs = () => {
     })();
 
     return (
-        <div className="min-h-screen bg-black">
+        <div className="min-h-screen theme-bg">
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-20 right-10 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl"></div>
                 <div className="absolute bottom-20 left-10 w-72 h-72 bg-orange-600/5 rounded-full blur-3xl"></div>
@@ -187,10 +187,10 @@ const Faqs = () => {
                         <HelpCircle size={16} className="text-orange-500" />
                         <span className="text-orange-400 text-sm font-medium">FAQs</span>
                     </div>
-                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold theme-text mb-4">
                         Frequently Asked <span className="text-orange-500">Questions</span>
                     </h1>
-                    <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+                    <p className="theme-text-muted max-w-2xl mx-auto text-sm sm:text-base">
                         Quick answers to common questions about docAppoint services, bookings, and more.
                     </p>
                 </div>
@@ -198,18 +198,18 @@ const Faqs = () => {
                 {/* Search */}
                 <div className="max-w-2xl mx-auto mb-12 sm:mb-16">
                     <div className="relative">
-                        <Search size={20} className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-500" />
+                        <Search size={20} className="absolute left-5 top-1/2 -translate-y-1/2 theme-text-muted" />
                         <input
                             type="text"
                             placeholder="Search your question..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full pl-14 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500 outline-none focus:border-orange-500/50 focus:bg-white/8 transition-all text-lg"
+                            className="w-full pl-14 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl theme-text placeholder-gray-500 outline-none focus:border-orange-500/50 focus:bg-white/8 transition-all text-lg"
                         />
                     </div>
                     <div className="mt-4 flex flex-wrap gap-2">
                         {['All', ...faqCategories.map((c) => c.title)].map((cat) => (
-                            <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-3 py-1.5 rounded-lg text-xs border ${activeCategory === cat ? 'bg-orange-500/20 border-orange-500/40 text-orange-400' : 'border-white/10 text-gray-400'}`}>
+                            <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-3 py-1.5 rounded-lg text-xs border ${activeCategory === cat ? 'bg-orange-500/20 border-orange-500/40 text-orange-400' : 'border-white/10 theme-text-muted'}`}>
                                 {cat}
                             </button>
                         ))}
@@ -230,18 +230,18 @@ const Faqs = () => {
                                         <div className={`w-12 h-12 rounded-xl ${category.iconBg} flex items-center justify-center shrink-0`}>
                                             <Icon size={24} className={category.iconColor} />
                                         </div>
-                                        <h2 className="text-xl font-bold text-white">{category.title}</h2>
+                                        <h2 className="text-xl font-bold theme-text">{category.title}</h2>
                                     </div>
                                 </div>
                                 <div className="divide-y divide-white/5">
                                     {category.questions.map((item, idx) => (
                                         <details key={idx} className="group">
                                             <summary className="flex items-center justify-between p-5 cursor-pointer list-none hover:bg-white/5 transition-colors">
-                                                <span className="text-gray-300 text-sm font-medium pr-4">{item.q}</span>
-                                                <ChevronRight size={16} className="text-gray-500 shrink-0 group-open:rotate-90 transition-transform duration-300" />
+                                                <span className="theme-text-muted text-sm font-medium pr-4">{item.q}</span>
+                                                <ChevronRight size={16} className="theme-text-muted shrink-0 group-open:rotate-90 transition-transform duration-300" />
                                             </summary>
                                             <div className="px-5 pb-5">
-                                                <p className="text-gray-400 text-sm leading-relaxed">{item.a}</p>
+                                                <p className="theme-text-muted text-sm leading-relaxed">{item.a}</p>
                                             </div>
                                         </details>
                                     ))}
@@ -257,23 +257,23 @@ const Faqs = () => {
                         <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
                         <div className="relative">
                             <div className="text-center max-w-2xl mx-auto">
-                                <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+                                <h2 className="text-2xl sm:text-3xl font-bold theme-text mb-4">
                                     Still Have Questions?
                                 </h2>
-                                <p className="text-gray-400 mb-8">
+                                <p className="theme-text-muted mb-8">
                                     Can&apos;t find what you&apos;re looking for? Our support team is here to help.
                                 </p>
                                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                     <Link
                                         href="/contact"
-                                        className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-linear-to-r from-orange-500 to-orange-600 text-white font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg shadow-orange-500/25 group"
+                                        className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-linear-to-r from-orange-500 to-orange-600 theme-text font-semibold hover:from-orange-600 hover:to-orange-700 transition-all duration-300 shadow-lg shadow-orange-500/25 group"
                                     >
                                         Contact Support
                                         <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                                     </Link>
                                     <Link
                                         href="/help-center"
-                                        className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-white/10 text-gray-300 font-semibold hover:bg-white/5 hover:border-orange-500/50 hover:text-orange-400 transition-all duration-300"
+                                        className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl border border-white/10 theme-text-muted font-semibold hover:bg-white/5 hover:border-orange-500/50 hover:text-orange-400 transition-all duration-300"
                                     >
                                         Visit Help Center
                                     </Link>
@@ -287,18 +287,18 @@ const Faqs = () => {
                 <div className="mt-10 grid sm:grid-cols-3 gap-6">
                     <div className="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm text-center hover:border-orange-500/20 transition-all duration-300">
                         <Mail size={24} className="text-orange-500 mx-auto mb-3" />
-                        <h3 className="text-white font-semibold text-sm mb-1">Email Us</h3>
-                        <p className="text-gray-400 text-xs">support@docappoint.com</p>
+                        <h3 className="theme-text font-semibold text-sm mb-1">Email Us</h3>
+                        <p className="theme-text-muted text-xs">support@docappoint.com</p>
                     </div>
                     <div className="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm text-center hover:border-orange-500/20 transition-all duration-300">
                         <Phone size={24} className="text-orange-500 mx-auto mb-3" />
-                        <h3 className="text-white font-semibold text-sm mb-1">Call Us</h3>
-                        <p className="text-gray-400 text-xs">+880 1700-000000</p>
+                        <h3 className="theme-text font-semibold text-sm mb-1">Call Us</h3>
+                        <p className="theme-text-muted text-xs">+880 1700-000000</p>
                     </div>
                     <div className="p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm text-center hover:border-orange-500/20 transition-all duration-300">
                         <Clock size={24} className="text-orange-500 mx-auto mb-3" />
-                        <h3 className="text-white font-semibold text-sm mb-1">Support Hours</h3>
-                        <p className="text-gray-400 text-xs">24/7 Available</p>
+                        <h3 className="theme-text font-semibold text-sm mb-1">Support Hours</h3>
+                        <p className="theme-text-muted text-xs">24/7 Available</p>
                     </div>
                 </div>
             </div>
@@ -307,3 +307,4 @@ const Faqs = () => {
 };
 
 export default Faqs;
+
