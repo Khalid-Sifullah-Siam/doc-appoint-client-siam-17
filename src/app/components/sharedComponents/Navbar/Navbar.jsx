@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
-import { X, User, LogOut, ChevronDown, Calendar, LayoutDashboard, Stethoscope, Home, Info } from 'lucide-react';
+import { X, User, LogOut, ChevronDown, Calendar, LayoutDashboard, Stethoscope, Home, Info, Sun, Moon } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
@@ -13,6 +13,10 @@ const Navbar = () => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [scrolled, setScrolled] = useState(false);
+    const [theme, setTheme] = useState(() => {
+        if (typeof window === 'undefined') return 'dark';
+        return localStorage.getItem('theme') || 'dark';
+    });
     const dropdownRef = useRef(null);
     const router = useRouter();
     const pathname = usePathname();
@@ -27,6 +31,10 @@ const Navbar = () => {
     const navItems = user
         ? [...baseNavItems, { name: 'Dashboard', path: '/v1/dashboard', icon: LayoutDashboard }]
         : baseNavItems;
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+    }, [theme]);
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -84,6 +92,13 @@ const Navbar = () => {
         }
     };
 
+    const toggleTheme = () => {
+        const nextTheme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(nextTheme);
+        localStorage.setItem('theme', nextTheme);
+        document.documentElement.setAttribute('data-theme', nextTheme);
+    };
+
     return (
         <>
             <nav className={`w-full sticky top-0 z-50 transition-all duration-500 ${scrolled
@@ -123,6 +138,13 @@ const Navbar = () => {
                         </div>
 
                         <div className="hidden lg:flex items-center gap-3">
+                            <button
+                                onClick={toggleTheme}
+                                className="w-10 h-10 rounded-xl border border-white/10 text-gray-300 hover:text-orange-400 hover:border-orange-500/40 transition-all flex items-center justify-center"
+                                aria-label="Toggle theme"
+                            >
+                                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                            </button>
                             {loading ? (
                                 <div className="flex items-center gap-3">
                                     <div className="w-20 h-9 rounded-xl bg-white/5 animate-pulse"></div>
@@ -317,6 +339,13 @@ const Navbar = () => {
                 </div>
 
                 <div className="p-4 border-t border-white/10 space-y-3">
+                    <button
+                        onClick={toggleTheme}
+                        className="flex items-center gap-3 w-full px-4 py-3 rounded-xl bg-white/5 text-gray-300 font-medium hover:bg-orange-500/10 hover:text-orange-400 transition-all"
+                    >
+                        {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+                        <span className="text-sm">{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                    </button>
                     {user ? (
                         <>
                             <Link

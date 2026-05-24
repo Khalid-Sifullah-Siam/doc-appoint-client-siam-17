@@ -16,10 +16,12 @@ const AllAppointmentsPage = () => {
     const [user, setUser] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [specialtyFilter, setSpecialtyFilter] = useState('All');
+    const [hospitalFilter, setHospitalFilter] = useState('All');
     const [sortBy, setSortBy] = useState('default');
     const [showFilters, setShowFilters] = useState(false);
 
     const specialties = ['All', ...new Set(doctorsData.map(doc => doc.specialty))];
+    const hospitals = ['All', ...new Set(doctorsData.map(doc => doc.hospital))];
 
     useEffect(() => {
         const checkUser = async () => {
@@ -55,6 +57,9 @@ const AllAppointmentsPage = () => {
         if (specialtyFilter !== 'All') {
             result = result.filter(doc => doc.specialty === specialtyFilter);
         }
+        if (hospitalFilter !== 'All') {
+            result = result.filter(doc => doc.hospital === hospitalFilter);
+        }
 
         
         switch (sortBy) {
@@ -79,7 +84,7 @@ const AllAppointmentsPage = () => {
             setFilteredDoctors(result);
         }
         tryFetch();
-    }, [searchTerm, specialtyFilter, sortBy, doctors]);
+    }, [searchTerm, specialtyFilter, hospitalFilter, sortBy, doctors]);
 
     const handleViewDetails = (doctorId) => {
         if (!user) {
@@ -155,7 +160,7 @@ const AllAppointmentsPage = () => {
                     </div>
 
                     {showFilters && (
-                        <div className="grid sm:grid-cols-2 gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm animate-in slide-in-from-top-2 duration-300">
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm animate-in slide-in-from-top-2 duration-300">
                             <div>
                                 <label className="block text-gray-400 text-sm font-medium mb-2">Specialty</label>
                                 <select
@@ -166,6 +171,20 @@ const AllAppointmentsPage = () => {
                                     {specialties.map((specialty, index) => (
                                         <option key={index} value={specialty} className="bg-gray-900">
                                             {specialty}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label className="block text-gray-400 text-sm font-medium mb-2">Hospital</label>
+                                <select
+                                    value={hospitalFilter}
+                                    onChange={(e) => setHospitalFilter(e.target.value)}
+                                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white outline-none focus:border-orange-500/50 transition-all cursor-pointer"
+                                >
+                                    {hospitals.map((hospital, index) => (
+                                        <option key={index} value={hospital} className="bg-gray-900">
+                                            {hospital}
                                         </option>
                                     ))}
                                 </select>
@@ -275,6 +294,7 @@ const AllAppointmentsPage = () => {
                             onClick={() => {
                                 setSearchTerm('');
                                 setSpecialtyFilter('All');
+                                setHospitalFilter('All');
                                 setSortBy('default');
                             }}
                             className="mt-4 px-6 py-3 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-400 font-medium hover:bg-orange-500/20 transition-all"

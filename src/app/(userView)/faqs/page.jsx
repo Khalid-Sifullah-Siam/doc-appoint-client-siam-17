@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { HelpCircle, ChevronRight, ArrowRight, MessageCircle, Search, Calendar, CreditCard, UserCheck, Shield, Stethoscope, Phone, Mail, Clock } from 'lucide-react';
 
@@ -16,6 +16,8 @@ export const metadata = {
 };
 
 const Faqs = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [activeCategory, setActiveCategory] = useState('All');
     const faqCategories = [
         {
             icon: Calendar,
@@ -171,6 +173,17 @@ const Faqs = () => {
         },
     ];
 
+    const filteredCategories = (() => {
+        const query = searchTerm.trim().toLowerCase();
+        return faqCategories
+            .filter((category) => activeCategory === 'All' || category.title === activeCategory)
+            .map((category) => ({
+                ...category,
+                questions: category.questions.filter((q) => !query || q.q.toLowerCase().includes(query) || q.a.toLowerCase().includes(query)),
+            }))
+            .filter((category) => category.questions.length > 0);
+    })();
+
     return (
         <div className="min-h-screen bg-black">
             <div className="absolute inset-0 pointer-events-none">
@@ -201,14 +214,23 @@ const Faqs = () => {
                         <input
                             type="text"
                             placeholder="Search your question..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full pl-14 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500 outline-none focus:border-orange-500/50 focus:bg-white/8 transition-all text-lg"
                         />
+                    </div>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                        {['All', ...faqCategories.map((c) => c.title)].map((cat) => (
+                            <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-3 py-1.5 rounded-lg text-xs border ${activeCategory === cat ? 'bg-orange-500/20 border-orange-500/40 text-orange-400' : 'border-white/10 text-gray-400'}`}>
+                                {cat}
+                            </button>
+                        ))}
                     </div>
                 </div>
 
                 {/* FAQ Categories */}
                 <div className="grid lg:grid-cols-2 gap-8">
-                    {faqCategories.map((category, index) => {
+                    {filteredCategories.map((category, index) => {
                         const Icon = category.icon;
                         return (
                             <div

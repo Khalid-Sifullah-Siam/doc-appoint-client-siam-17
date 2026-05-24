@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search, HelpCircle, BookOpen, MessageCircle, Phone, Mail, ChevronRight, ArrowRight, FileText, Shield, CreditCard, UserCheck, Stethoscope, Calendar } from 'lucide-react';
 
@@ -16,6 +16,8 @@ export const metadata = {
 };
 
 const HelpCenter = () => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [activeCategory, setActiveCategory] = useState('All');
     const helpCategories = [
         {
             icon: Calendar,
@@ -136,6 +138,20 @@ const HelpCenter = () => {
         },
     ];
 
+    const filteredCategories = (() => {
+        return helpCategories.filter((category) => {
+            const categoryMatch = activeCategory === 'All' || category.title === activeCategory;
+            const query = searchTerm.trim().toLowerCase();
+            const searchMatch = !query || category.title.toLowerCase().includes(query) || category.articles.some((a) => a.toLowerCase().includes(query));
+            return categoryMatch && searchMatch;
+        });
+    })();
+
+    const filteredFaqs = (() => {
+        const query = searchTerm.trim().toLowerCase();
+        return faqs.filter((faq) => !query || faq.question.toLowerCase().includes(query) || faq.answer.toLowerCase().includes(query));
+    })();
+
     return (
         <div className="min-h-screen bg-black">
             <div className="absolute inset-0 pointer-events-none">
@@ -166,14 +182,23 @@ const HelpCenter = () => {
                         <input
                             type="text"
                             placeholder="Search for help articles..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
                             className="w-full pl-14 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500 outline-none focus:border-orange-500/50 focus:bg-white/8 transition-all text-lg"
                         />
+                    </div>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                        {['All', ...helpCategories.map((c) => c.title)].map((cat) => (
+                            <button key={cat} onClick={() => setActiveCategory(cat)} className={`px-3 py-1.5 rounded-lg text-xs border ${activeCategory === cat ? 'bg-orange-500/20 border-orange-500/40 text-orange-400' : 'border-white/10 text-gray-400'}`}>
+                                {cat}
+                            </button>
+                        ))}
                     </div>
                 </div>
 
                 {/* Help Categories */}
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                    {helpCategories.map((category, index) => {
+                    {filteredCategories.map((category, index) => {
                         const Icon = category.icon;
                         return (
                             <div
@@ -227,7 +252,7 @@ const HelpCenter = () => {
                     </div>
 
                     <div className="max-w-3xl mx-auto space-y-4">
-                        {faqs.map((faq, index) => (
+                        {filteredFaqs.map((faq, index) => (
                             <details
                                 key={index}
                                 className="group rounded-2xl bg-white/5 border border-white/10 overflow-hidden transition-all duration-300 hover:border-orange-500/20"

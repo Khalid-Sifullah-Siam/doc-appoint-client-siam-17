@@ -26,6 +26,18 @@ const MyBookingsPage = () => {
     });
     const [saving, setSaving] = useState(false);
 
+    async function fetchBookings(email) {
+        try {
+            const response = await axiosInstance.get(`/appointments?userEmail=${email}`);
+            if (response.data.success) {
+                setBookings(response.data.data);
+            }
+        } catch (error) {
+            console.error('Failed to fetch bookings:', error);
+            toast.error('Failed to load bookings');
+        }
+    }
+
     useEffect(() => {
         const checkUser = async () => {
             try {
@@ -42,18 +54,6 @@ const MyBookingsPage = () => {
         };
         checkUser();
     }, []);
-
-    const fetchBookings = async (email) => {
-        try {
-            const response = await axiosInstance.get(`/appointments?userEmail=${email}`);
-            if (response.data.success) {
-                setBookings(response.data.data);
-            }
-        } catch (error) {
-            console.error('Failed to fetch bookings:', error);
-            toast.error('Failed to load bookings');
-        }
-    };
 
     const handleEdit = (booking) => {
         setEditingBooking(booking);

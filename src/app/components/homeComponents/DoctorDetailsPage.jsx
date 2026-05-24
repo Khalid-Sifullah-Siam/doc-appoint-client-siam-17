@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,24 +10,14 @@ import toast from 'react-hot-toast';
 import axiosInstance from '../sharedComponents/AxiosInstance/AxiosInstance';
 import { doctorsData } from '@/data/doctors';
 import ProtectedRoute from '../sharedComponents/ProtectedRoute/ProtectedRoute';
-import Loading from '@/app/loading';
 
 
 
 const DoctorDetailsPage = () => {
     const { id } = useParams();
     const router = useRouter();
-    const [doctor, setDoctor] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        const foundDoctor = doctorsData.find(doc => doc.id === id);
-        if (foundDoctor) {
-            setDoctor(foundDoctor);
-        }
-        setLoading(false);
-    }, [id]);
+    const doctor = useMemo(() => doctorsData.find((doc) => doc.id === id) || null, [id]);
 
     useEffect(() => {
         const checkUser = async () => {
@@ -197,12 +187,6 @@ const DoctorDetailsPage = () => {
             }
         });
     };
-
-    if (loading) {
-        return (
-            <Loading />
-        );
-    }
 
     if (!doctor) {
         return (
