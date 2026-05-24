@@ -12,9 +12,12 @@ const DoctorsPage = () => {
     const isHomePage = pathname === '/';
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedSpecialty, setSelectedSpecialty] = useState('All');
     const doctorsPerPage = 6;
 
     let displayDoctors = doctorsData;
+    const specialtyOptions = ['All', ...new Set(doctorsData.map((doctor) => doctor.specialty))];
 
     if (isHomePage) {
         displayDoctors = [...doctorsData]
@@ -22,9 +25,22 @@ const DoctorsPage = () => {
             .slice(0, 3);
     }
 
-    const totalPages = Math.ceil(doctorsData.length / doctorsPerPage);
-    const startIndex = (currentPage - 1) * doctorsPerPage;
-    const paginatedDoctors = doctorsData.slice(startIndex, startIndex + doctorsPerPage);
+    const filteredDoctors = doctorsData.filter((doctor) => {
+        const searchValue = searchTerm.trim().toLowerCase();
+        const matchesSearch = searchValue === '' ||
+            doctor.name.toLowerCase().includes(searchValue) ||
+            doctor.specialty.toLowerCase().includes(searchValue) ||
+            doctor.hospital.toLowerCase().includes(searchValue) ||
+            doctor.location.toLowerCase().includes(searchValue);
+
+        const matchesSpecialty = selectedSpecialty === 'All' || doctor.specialty === selectedSpecialty;
+        return matchesSearch && matchesSpecialty;
+    });
+
+    const totalPages = Math.max(1, Math.ceil(filteredDoctors.length / doctorsPerPage));
+    const safeCurrentPage = Math.min(currentPage, totalPages);
+    const startIndex = (safeCurrentPage - 1) * doctorsPerPage;
+    const paginatedDoctors = filteredDoctors.slice(startIndex, startIndex + doctorsPerPage);
 
     const finalDoctors = isHomePage ? displayDoctors : paginatedDoctors;
 
@@ -50,6 +66,35 @@ const DoctorsPage = () => {
                         <p className="text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
                             Connect with top-rated specialists from Bangladesh&apos;s leading hospitals. Quality healthcare starts with the right doctor.
                         </p>
+                    </div>
+                )}
+
+                {!isHomePage && (
+                    <div className="mb-8 grid gap-3 sm:grid-cols-3">
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value);
+                                setCurrentPage(1);
+                            }}
+                            placeholder="Search by doctor, specialty, hospital or area"
+                            className="sm:col-span-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-gray-500 outline-none focus:border-orange-500/40 focus:ring-2 focus:ring-orange-500/20"
+                        />
+                        <select
+                            value={selectedSpecialty}
+                            onChange={(e) => {
+                                setSelectedSpecialty(e.target.value);
+                                setCurrentPage(1);
+                            }}
+                            className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none focus:border-orange-500/40 focus:ring-2 focus:ring-orange-500/20"
+                        >
+                            {specialtyOptions.map((specialty) => (
+                                <option key={specialty} value={specialty} className="bg-black text-white">
+                                    {specialty}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                 )}
 
@@ -139,11 +184,18 @@ const DoctorsPage = () => {
                     ))}
                 </div>
 
+                {!isHomePage && finalDoctors.length === 0 && (
+                    <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-10 text-center">
+                        <p className="text-gray-300 text-lg font-semibold">No doctors found</p>
+                        <p className="text-gray-500 text-sm mt-2">Try another name, location, or specialty filter.</p>
+                    </div>
+                )}
+
                 {!isHomePage && totalPages > 1 && (
                     <div className="flex items-center justify-center gap-2 mt-12">
                         <button
                             onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
+                            disabled={safeCurrentPage === 1}
                             className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-orange-500 hover:border-orange-500/30 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
                         >
                             <ChevronLeft size={20} />
@@ -153,7 +205,7 @@ const DoctorsPage = () => {
                             <button
                                 key={page}
                                 onClick={() => handlePageChange(page)}
-                                className={`w-10 h-10 rounded-xl font-medium text-sm transition-all duration-300 ${currentPage === page
+                                className={`w-10 h-10 rounded-xl font-medium text-sm transition-all duration-300 ${safeCurrentPage === page
                                         ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/25'
                                         : 'bg-white/5 border border-white/10 text-gray-400 hover:text-orange-500 hover:border-orange-500/30'
                                     }`}
@@ -164,7 +216,7 @@ const DoctorsPage = () => {
 
                         <button
                             onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
+                            disabled={safeCurrentPage === totalPages}
                             className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-orange-500 hover:border-orange-500/30 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
                         >
                             <ChevronRight size={20} />

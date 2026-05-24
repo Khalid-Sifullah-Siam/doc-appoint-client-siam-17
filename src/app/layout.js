@@ -38,9 +38,26 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
+      data-theme="dark"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-black">
+      <body className="min-h-full flex flex-col theme-bg theme-text">
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function () {
+                try {
+                  var saved = localStorage.getItem('theme');
+                  var systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  var theme = saved || (systemPrefersDark ? 'dark' : 'light');
+                  document.documentElement.setAttribute('data-theme', theme);
+                  document.documentElement.style.colorScheme = theme;
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         <Toaster position="top-right" />
         {children}
       </body>

@@ -15,7 +15,9 @@ const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [theme, setTheme] = useState(() => {
         if (typeof window === 'undefined') return 'dark';
-        return localStorage.getItem('theme') || 'dark';
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) return savedTheme;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     });
     const dropdownRef = useRef(null);
     const router = useRouter();
@@ -34,6 +36,7 @@ const Navbar = () => {
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
     }, [theme]);
 
     useEffect(() => {
@@ -97,6 +100,7 @@ const Navbar = () => {
         setTheme(nextTheme);
         localStorage.setItem('theme', nextTheme);
         document.documentElement.setAttribute('data-theme', nextTheme);
+        document.documentElement.style.colorScheme = nextTheme;
     };
 
     return (
