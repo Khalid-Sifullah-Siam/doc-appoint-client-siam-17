@@ -1,4 +1,4 @@
-# docAppoint — Smart Healthcare Booking Platform
+# DocAppoint — Smart Healthcare Booking Platform
 
 Book doctor appointments with confidence—fast browsing, easy scheduling, and secure authentication.
 
