@@ -54,16 +54,19 @@ Create a `.env` file in the project root.
 ```bash
 PORT=3000
 MONGO_URI=your_mongodb_url
+BETTER_AUTH_SECRET=use-a-long-random-secret
 
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 
 # Used by better-auth client on the frontend
-BETTER_AUTH_URL=http://localhost:3000/api/auth
+BETTER_AUTH_URL=http://localhost:3000
+# Use the deployed app URL here because this value is used in browser code.
+NEXT_PUBLIC_BETTER_AUTH_URL=http://localhost:3000/api/auth
 ```
 
 > Notes:
-> - `BETTER_AUTH_URL` should match where your Next.js app exposes `better-auth` routes.
+> - `BETTER_AUTH_URL` should be the app origin. The auth route is `/api/auth`.
 > - If you deploy to Vercel, update it to the deployed domain.
 
 ---
