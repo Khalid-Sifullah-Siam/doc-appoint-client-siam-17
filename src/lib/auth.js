@@ -7,14 +7,36 @@ const client = new MongoClient(
 )
 const db = client.db("doc-appoint");
 
+const getOrigin = (value) => {
+    if (!value) return null;
+
+    try {
+        const url = value.startsWith("http") ? value : `https://${value}`;
+        return new URL(url).origin;
+    } catch {
+        return null;
+    }
+};
+
+const appURL =
+    getOrigin(process.env.BETTER_AUTH_URL) ||
+    getOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL) ||
+    getOrigin(process.env.VERCEL_URL) ||
+    "http://localhost:3000";
+
+const trustedOrigins = [
+    "http://localhost:3000",
+    appURL,
+    getOrigin(process.env.NEXT_PUBLIC_BETTER_AUTH_URL),
+    getOrigin(process.env.VERCEL_PROJECT_PRODUCTION_URL),
+    getOrigin(process.env.VERCEL_URL),
+].filter(Boolean);
+
 export const auth = betterAuth({
-    baseURL: process.env.BETTER_AUTH_URL || "http://localhost:3000",
+    baseURL: appURL,
     basePath: "/api/auth",
     secret: process.env.BETTER_AUTH_SECRET || "doc-appoint-development-secret-change-me",
-    trustedOrigins: [
-        "http://localhost:3000",
-        "https://doc-appoint-client-siam-17.vercel.app",
-    ],
+    trustedOrigins: [...new Set(trustedOrigins)],
     emailAndPassword: {
         enabled: true,
     },
